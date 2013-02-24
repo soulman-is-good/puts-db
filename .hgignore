@@ -1,0 +1,12 @@
+\.orig$
+\.orig\..*$
+\.chg\..*$
+\.rej$
+\.conflict\~$
+
+syntax: glob
+*.log
+.dep.inc
+dist
+build
+nbproject
