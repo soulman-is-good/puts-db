@@ -2,10 +2,8 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
-	
-#include "mysql_connection.h"
-//#include <mysql_driver.h>
 
+#include <cppconn/connection.h>
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
 #include <cppconn/resultset.h>
@@ -15,18 +13,15 @@
 #define EXAMPLE_HOST "localhost"
 #define EXAMPLE_USER "root"
 #define EXAMPLE_PASS "root"
-#define EXAMPLE_DB "care"
+#define EXAMPLE_DB "facecom"
 
 using namespace std;
-using namespace sql::mysql;
+//using namespace sql::mysql;
 
 int main(int argc, char *argv[]){
-    if(argc == 1){
+    if(argc == 123){
         cout<<"Use --help to find out about arguments"<<endl;
         return 0;
-    }
-    if(strcmp(argv[1], "--help")==0){
-        cout<<"Help goes here"<<endl;
     }
     
 string url(argc >= 2 ? argv[1] : EXAMPLE_HOST);
@@ -40,13 +35,13 @@ string url(argc >= 2 ? argv[1] : EXAMPLE_HOST);
 	
     try {
 	
-	sql::Driver* driver = new MySQL_Driver();
+	sql::Driver* driver = get_driver_instance();
         std::auto_ptr<sql::Connection> con(driver->connect(url, user, pass));
         con->setSchema(database);
         std::auto_ptr<sql::Statement> stmt(con->createStatement());
         std::auto_ptr<sql::ResultSet> res(stmt->executeQuery("SHOW TABLES;"));
 	while (res->next())
-                cout << "Table: " << res->getString("Tables_in_care") << endl;
+                cout << "Table: " << res->getString("Tables_in_facecom") << endl;
     } catch (sql::SQLException &e) {
         /*
           The MySQL Connector/C++ throws three different exceptions:
